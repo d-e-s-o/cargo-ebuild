@@ -108,11 +108,7 @@ pub fn gen_ebuild_data(manifest_path: Option<PathBuf>) -> Result<EbuildConfig> {
     let lockfile = Lockfile::load(lockfile_path)?;
 
     for pkg in lockfile.packages {
-        if let Some(src) = pkg.source {
-            if src.is_default_registry() {
-                crates.push(format!("{}-{}\n", pkg.name, pkg.version));
-            }
-        }
+        crates.push(format!("{}-{}\n", pkg.name, pkg.version));
     }
 
     Ok(EbuildConfig::from_package(root_pkg, crates, licenses))
